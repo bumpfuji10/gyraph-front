@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import NotLoginHeader from './components/NotLoginHeader.vue'
+import PracticeRecordIndex from './components/pages/PracticeRecordIndex.vue';
 </script>
 
 <template>
   <div>
     <NotLoginHeader></NotLoginHeader>
-    <Home></Home>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+    <PracticeRecordIndex></PracticeRecordIndex>
   </div>
   <HelloWorld msg="Vite + Vue" />
 </template>
