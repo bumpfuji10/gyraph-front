@@ -15,9 +15,9 @@
 </template>
 
 <script lang="ts">
-import { getUsers } from '../resources/user';
-import { getPracticeRecords } from '../resources/practiceRecord'
-import { getPracticeDetails } from '../resources/practiceDetail'
+import { getUsers } from '../../resources/user';
+import { getPracticeRecords } from '../../resources/practiceRecord'
+import { getPracticeDetails } from '../../resources/practiceDetail'
 
 interface User {
   id: number;
