@@ -1,5 +1,6 @@
 <template>
   <div>
+    <NotLoginHeader></NotLoginHeader>
     <ul>
       <li v-for="user in users" :key="user.id">
         {{ user.name }} - {{ user.email }}
@@ -15,6 +16,7 @@
 </template>
 
 <script lang="ts">
+import NotLoginHeader from '../NotLoginHeader.vue';
 import { getUsers } from '../../resources/user';
 import { getPracticeRecords } from '../../resources/practiceRecord'
 import { getPracticeDetails } from '../../resources/practiceDetail'
@@ -37,6 +39,9 @@ interface PracticeDetail {
   practice_record_id: number;
 }
 export default {
+  components: {
+    NotLoginHeader
+  },
   data() {
     return {
       users: [] as User[],
@@ -54,7 +59,6 @@ export default {
       try {
         const response = await getUsers();
         this.users = response.data
-        console.log(this.users);
       } catch (error) {
         console.error(error);
       }
@@ -63,7 +67,7 @@ export default {
       try {
         const response = await getPracticeRecords();
         this.practiceRecords = response.data
-        console.log(this.practiceRecords)
+
       } catch (error) {
         console.error(error);
       }
@@ -72,7 +76,6 @@ export default {
       try {
         const response = await getPracticeDetails();
         this.practiceDetails = response.data
-        console.log(this.practiceDetails)
       } catch (error) {
         console.error(error);
       }
