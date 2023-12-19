@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import NotLoginHeader from './components/NotLoginHeader.vue'
-import PracticeRecordIndex from './components/pages/PracticeRecordIndex.vue';
+// import NotLoginHeader from './components/NotLoginHeader.vue'
 </script>
 
 <template>
   <div>
-    <NotLoginHeader></NotLoginHeader>
-    <PracticeRecordIndex></PracticeRecordIndex>
+    <!-- <NotLoginHeader></NotLoginHeader> -->
+    <router-view></router-view>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
