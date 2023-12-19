@@ -3,11 +3,11 @@
     <header>
       <div class="logo-container">
         <nav class="gyraph-logo" @click="hoge">
-          Gyraph
+          <router-link to="/">Gyraph</router-link>
         </nav>
         <div class="loginAndNewAccount">
           <button class="login">
-            ログイン
+            <router-link to="/login">ログイン</router-link>
           </button>
           <button class="new-account">
             新規登録
@@ -20,10 +20,10 @@
 
 <script lang="ts">
 export default {
-  name: 'Header',
+  name: 'NotLoginHeader',
   methods: {
     hoge() {
-      console.log("hoge")
+      console.log("hoge");
     }
   }
 }
