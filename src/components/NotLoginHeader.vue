@@ -1,7 +1,7 @@
 <template>
   <div>
     <header>
-      <div class="logo-container">
+      <div class="header-container">
         <nav class="gyraph-logo" @click="hoge">
           <router-link to="/">Gyraph</router-link>
         </nav>
