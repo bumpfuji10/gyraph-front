@@ -1,7 +1,7 @@
 <template>
   <div>
     <header>
-      <div class="logo-container">
+      <div class="header-container">
         <nav class="gyraph-logo" @click="hoge">
           <router-link to="/">Gyraph</router-link>
         </nav>
@@ -10,7 +10,7 @@
             <router-link to="/login">ログイン</router-link>
           </button>
           <button class="new-account">
-            新規登録
+            <router-link to="/signup">新規登録</router-link>
           </button>
         </div>
       </div>
