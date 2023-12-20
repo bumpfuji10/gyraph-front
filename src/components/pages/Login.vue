@@ -28,7 +28,10 @@
       <button class="login-button">
         ログイン
       </button>
-      <div>
+      <div class="redirectPasswordForgot">
+        <router-link to="/signup">パスワードをお忘れの方はこちら</router-link>
+      </div>
+      <div class="redirectSignup">
         <router-link to="/signup" class="redirectSignup">登録はこちら</router-link>
       </div>
     </main>
