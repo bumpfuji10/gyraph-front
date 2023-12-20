@@ -10,7 +10,7 @@
             <router-link to="/login">ログイン</router-link>
           </button>
           <button class="new-account">
-            新規登録
+            <router-link to="/signup">新規登録</router-link>
           </button>
         </div>
       </div>
