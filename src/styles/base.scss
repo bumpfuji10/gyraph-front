@@ -11,3 +11,21 @@ a, a:visited {
 body {
   margin: 0;
 }
+
+.baseCenterLogo {
+  margin: 40px 0 20px 0;
+  font-weight: 600;
+  font-size: 25px;
+  color: #71C7EB;
+}
+
+.baseCenterText {
+  text-align: center;
+  font-weight: 600;
+}
+
+.base-main-zone {
+  margin: 8px;
+  display: grid;
+  justify-items: center;
+}
