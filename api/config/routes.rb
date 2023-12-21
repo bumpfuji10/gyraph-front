@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       resources :practice_records
 
       resources :practice_details
-
+      
     end
   end
 end
