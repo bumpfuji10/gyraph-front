@@ -66,14 +66,11 @@ export default {
       try {
         const response = await createUser(this.newUser)
         console.log(response)
+        this.$router.push('/');
       } catch(error: any) {
-        console.error(error)
         if (error.response && error.response.status === 422) {
-          const errors = error.response.data.errors;
           const fullMessages = error.response.data.full_messages;
           this.errorMessage = fullMessages
-          console.log(errors)
-          console.log(fullMessages)
         }
       }
     }
