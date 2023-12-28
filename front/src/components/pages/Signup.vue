@@ -38,7 +38,8 @@
         </form>
       </div>
       <button @click="submitForm" class="signup-button">
-        登録
+        <div v-if="isLoading" class="loading"></div>
+        <span v-if="!isLoading">登録</span>
       </button>
       <div class="redirect-login">
         <router-link to="/login" class="redirect-login">ログインはこちら</router-link>
@@ -58,12 +59,15 @@ export default {
         email: "",
         password: "",
       },
-      errorMessage: ""
+      errorMessage: "",
+      isLoading: false
     }
   },
   methods: {
     async submitForm() {
       try {
+        this.isLoading = true;
+        await new Promise(resolve => setTimeout(resolve, 2000));
         const response = await createUser(this.newUser)
         console.log(response)
         this.$router.push('/');
@@ -72,6 +76,8 @@ export default {
           const fullMessages = error.response.data.full_messages;
           this.errorMessage = fullMessages
         }
+      } finally {
+        this.isLoading = false
       }
     }
   }
