@@ -26,7 +26,7 @@
           メールアドレス
         </label>
         <form>
-          <input type="text" class="signup-form-input" v-model="newUser.email">
+          <input type="email" class="signup-form-input" v-model="newUser.email">
         </form>
       </div>
       <div class="signup-grid">
