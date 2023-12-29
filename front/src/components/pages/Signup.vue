@@ -26,7 +26,7 @@
           メールアドレス
         </label>
         <form>
-          <input type="text" class="signup-form-input" v-model="newUser.email">
+          <input type="email" class="signup-form-input" v-model="newUser.email">
         </form>
       </div>
       <div class="signup-grid">
@@ -38,7 +38,8 @@
         </form>
       </div>
       <button @click="submitForm" class="signup-button">
-        登録
+        <div v-if="isLoading" class="loading"></div>
+        <span v-if="!isLoading">登録</span>
       </button>
       <div class="redirect-login">
         <router-link to="/login" class="redirect-login">ログインはこちら</router-link>
@@ -58,23 +59,25 @@ export default {
         email: "",
         password: "",
       },
-      errorMessage: ""
+      errorMessage: "",
+      isLoading: false
     }
   },
   methods: {
     async submitForm() {
       try {
+        this.isLoading = true;
+        await new Promise(resolve => setTimeout(resolve, 2000));
         const response = await createUser(this.newUser)
         console.log(response)
+        this.$router.push('/');
       } catch(error: any) {
-        console.error(error)
         if (error.response && error.response.status === 422) {
-          const errors = error.response.data.errors;
           const fullMessages = error.response.data.full_messages;
           this.errorMessage = fullMessages
-          console.log(errors)
-          console.log(fullMessages)
         }
+      } finally {
+        this.isLoading = false
       }
     }
   }
