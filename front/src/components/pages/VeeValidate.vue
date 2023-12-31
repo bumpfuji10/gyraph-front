@@ -12,7 +12,7 @@
       新規登録
     </div>
     <main class="base-main-zone">
-      <Form :validationSchema="schema">
+      <Form @submit.prevent="submitForm" :validationSchema="schema">
         <div class="signup-grid">
           <div class="input-name-and-validate">
             <label for="" class="signup-label">
@@ -38,7 +38,7 @@
             </label>
             <ErrorMessage name="password" class="input-error-message" />
           </div>
-          <Field v-model="newUser.password" name="password" type="email" class="signup-form-input" />
+          <Field v-model="newUser.password" name="password" type="password" class="signup-form-input" />
         </div>
         <button @click="submitForm" :class="isFormValid ? 'signup-button' : 'not-input-button'" :disabled="!isFormValid">
           <div v-if="isLoading" class="loading"></div>
@@ -86,28 +86,23 @@
           this.isLoading = true;
           const response = await createUser(this.newUser);
           console.log(response)
-          console.log('Attempting to route...');
           this.$nextTick(() => {
             this.$router.push('/');
           });
         } catch(error: any) {
-          console.log("error")
+          console.error(error)
           if (error.response && error.response.status === 422) {
             const fullMessages = error.response.data.full_messages;
             this.errorMessage = fullMessages
           }
         } finally {
-          console.log("finally")
           this.isLoading = false
         }
       }
     },
     computed: {
       isFormValid() {
-        if (this.newUser.name && this.newUser.email && this.newUser.password) {
-          console.log("hoge")
-          return "hogehoge!"
-        }
+        return this.newUser.name && this.newUser.email && this.newUser.password
       }
     }
   }
