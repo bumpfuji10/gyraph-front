@@ -68,3 +68,18 @@ input {
     transform: rotate(360deg);
   }
 }
+
+.not-input-button {
+  width: 320px;
+  height: 40px;
+  border-radius: 6px;
+  background-color: #71C7EB;
+  font-size: 15px;
+  align-items: center;
+  justify-content: space-evenly;
+  display: flex;
+  color: white;
+  font-weight: 600;
+  border: none;
+  background-color: gray;
+}

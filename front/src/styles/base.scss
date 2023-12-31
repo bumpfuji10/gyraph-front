@@ -29,3 +29,9 @@ body {
   display: grid;
   justify-items: center;
 }
+
+// 入力フォームのバリデーションメッセージ
+.input-error-message {
+  font-size: 12px;
+  color: red;
+}
