@@ -17,7 +17,6 @@ input {
   border:0;
   padding:10px;
   border:solid 1px #ccc;
-  margin:0 0 20px;
   width:300px;
   border-radius: 4px;
 }
@@ -27,6 +26,7 @@ input {
   font-size: 12px;
 }
 
+// 登録ボタン(活性・非活性)
 .signup-button {
   width: 320px;
   height: 40px;
@@ -41,6 +41,23 @@ input {
   border: none;
   cursor: pointer;
   background-color: #71C7EB;
+  margin-top: 20px;
+}
+
+.not-input-button {
+  width: 320px;
+  height: 40px;
+  border-radius: 6px;
+  background-color: #71C7EB;
+  font-size: 15px;
+  align-items: center;
+  justify-content: space-evenly;
+  display: flex;
+  color: white;
+  font-weight: 600;
+  border: none;
+  background-color: gray;
+  margin-top: 20px;
 }
 
 .signup-button:hover {
@@ -67,4 +84,8 @@ input {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.input-name-and-validate {
+  margin-top: 20px;
 }

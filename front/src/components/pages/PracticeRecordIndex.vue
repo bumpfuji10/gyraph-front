@@ -3,7 +3,7 @@
     <NotLoginHeader></NotLoginHeader>
     <ul>
       <li v-for="user in users" :key="user.id">
-        {{ user.name }} - {{ user.email }}
+        {{ user.name }} - {{ user.email }} - {{ user.created_at }}
       </li>
       <li v-for="practiceRecord in practiceRecords" :key="practiceRecord.id">
         {{ practiceRecord.id }} - {{ practiceRecord.practiced_date }}
@@ -25,6 +25,7 @@ interface User {
   id: number;
   name: string;
   email: string;
+  created_at: Date;
 }
 
 interface PracticeRecord {
