@@ -12,33 +12,33 @@
       新規登録
     </div>
     <main class="base-main-zone">
-      <Form @submit.prevent="submitForm" :validationSchema="schema">
+      <Form @submit.prevent="submitForm" :validationSchema="signupValidateSchema">
         <div class="signup-grid">
           <div class="input-name-and-validate">
             <label for="" class="signup-label">
               名前
             </label>
-            <ErrorMessage name="name" class="input-error-message"/>
           </div>
           <Field v-model="newUser.name" name="name" type="text" class="signup-form-input" />
+          <ErrorMessage name="name" class="input-error-message"/>
         </div>
         <div class="signup-grid">
           <div class="input-name-and-validate">
             <label for="" class="signup-label">
               メールアドレス
             </label>
-            <ErrorMessage name="email" class="input-error-message" />
           </div>
           <Field v-model="newUser.email" name="email" type="email" class="signup-form-input" />
+          <ErrorMessage name="email" class="input-error-message" />
         </div>
         <div class="signup-grid">
           <div class="input-name-and-validate">
             <label for="" class="signup-label">
               パスワード
             </label>
-            <ErrorMessage name="password" class="input-error-message" />
           </div>
           <Field v-model="newUser.password" name="password" type="password" class="signup-form-input" />
+          <ErrorMessage name="password" class="input-error-message" />
         </div>
         <button @click="submitForm" :class="isFormValid ? 'signup-button' : 'not-input-button'" :disabled="!isFormValid">
           <div v-if="isLoading" class="loading"></div>
@@ -52,8 +52,6 @@
 <script lang="ts">
   import { ErrorMessage, Field, Form } from 'vee-validate';
   import { createUser } from '../../resources/user';
-  import { z } from 'zod';
-  import { toTypedSchema } from '@vee-validate/zod';
 
   export default {
     name: 'Signup',
@@ -65,19 +63,23 @@
     data() {
       return {
         newUser: {
-          name: "",
+          name: '',
           email: "",
           password: "",
         },
         errorMessage: "",
         isLoading: false,
-        schema: toTypedSchema(
-          z.object({
-            name: z.string({ required_error: "名前を入力してください" }),
-            email: z.string({ required_error: "メールアドレスを入力してください" }),
-            password: z.string({ required_error: "パスワードを入力してください" })
-          })
-        )
+        signupValidateSchema: {
+          name(value: string) {
+            return value && value.trim() ? true : '名前は必須項目です';
+          },
+          email(value: string) {
+            return value && value.trim() ? true : 'メールアドレスは必須項目です'
+          },
+          password(value: string) {
+            return value && value.trim() ? true : 'パスワードは必須項目です'
+          }
+        }
       }
     },
     methods: {
