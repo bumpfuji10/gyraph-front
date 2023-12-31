@@ -40,10 +40,9 @@
           </div>
           <Field v-model="newUser.password" name="password" type="email" class="signup-form-input" />
         </div>
-        <button @click="submitForm" :class="{ 'signup-button': isFormValid, 'not-input-button': !isFormValid }" :disabled="!isFormValid">
+        <button @click="submitForm" :class="isFormValid ? 'signup-button' : 'not-input-button'" :disabled="!isFormValid">
           <div v-if="isLoading" class="loading"></div>
-          <span v-if="!isLoading && isFormValid">登録</span>
-          <span v-if="!isLoading && !isFormValid">登録</span>
+          <span v-if="!isLoading">登録</span>
         </button>
       </Form>
     </main>
