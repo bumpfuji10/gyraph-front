@@ -12,8 +12,7 @@
       新規登録
     </div>
     <main class="base-main-zone">
-      <!-- <Form :validationSchema="schema"> -->
-      <Form>
+      <Form :validationSchema="schema">
         <div class="signup-grid">
           <div class="input-name-and-validate">
             <label for="" class="signup-label">
@@ -41,9 +40,10 @@
           </div>
           <Field v-model="newUser.password" name="password" type="email" class="signup-form-input" />
         </div>
-        <button @click="submitForm" class="signup-button">
+        <button @click="submitForm" :class="{ 'signup-button': isFormValid, 'not-input-button': !isFormValid }" :disabled="!isFormValid">
           <div v-if="isLoading" class="loading"></div>
-          <span v-if="!isLoading">登録</span>
+          <span v-if="!isLoading && isFormValid">登録</span>
+          <span v-if="!isLoading && !isFormValid">登録</span>
         </button>
       </Form>
     </main>
@@ -53,8 +53,8 @@
 <script lang="ts">
   import { ErrorMessage, Field, Form } from 'vee-validate';
   import { createUser } from '../../resources/user';
-  // import { z } from 'zod';
-  // import { toTypedSchema } from '@vee-validate/zod';
+  import { z } from 'zod';
+  import { toTypedSchema } from '@vee-validate/zod';
 
   export default {
     name: 'Signup',
@@ -72,13 +72,13 @@
         },
         errorMessage: "",
         isLoading: false,
-        // schema: toTypedSchema(
-        //   z.object({
-        //     name: z.string({ required_error: "名前を入力してください" }),
-        //     email: z.string({ required_error: "メールアドレスを入力してください" }),
-        //     password: z.string({ required_error: "パスワードを入力してください" })
-        //   })
-        // )
+        schema: toTypedSchema(
+          z.object({
+            name: z.string({ required_error: "名前を入力してください" }),
+            email: z.string({ required_error: "メールアドレスを入力してください" }),
+            password: z.string({ required_error: "パスワードを入力してください" })
+          })
+        )
       }
     },
     methods: {
@@ -88,8 +88,9 @@
           const response = await createUser(this.newUser);
           console.log(response)
           console.log('Attempting to route...');
-          this.$router.push('/')
-          return response.data;
+          this.$nextTick(() => {
+            this.$router.push('/');
+          });
         } catch(error: any) {
           console.log("error")
           if (error.response && error.response.status === 422) {
@@ -106,6 +107,7 @@
       isFormValid() {
         if (this.newUser.name && this.newUser.email && this.newUser.password) {
           console.log("hoge")
+          return "hogehoge!"
         }
       }
     }
