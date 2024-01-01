@@ -12,14 +12,14 @@
       新規登録
     </div>
     <main class="base-main-zone">
-      <Form @submit.prevent="submitForm" :validationSchema="signupValidateSchema">
+      <Form @submit.prevent="submitForm">
         <div class="signup-grid">
           <div class="input-name-and-validate">
             <label for="" class="signup-label">
               名前
             </label>
           </div>
-          <Field v-model="newUser.name" name="name" type="text" class="signup-form-input" />
+          <Field v-model="newUser.name" name="name" type="text" class="signup-form-input" rules="required" placeholder="名前を入力" />
           <ErrorMessage name="name" class="input-error-message"/>
         </div>
         <div class="signup-grid">
@@ -28,7 +28,7 @@
               メールアドレス
             </label>
           </div>
-          <Field v-model="newUser.email" name="email" type="email" class="signup-form-input" />
+          <Field v-model="newUser.email" name="email" type="email" class="signup-form-input" rules="required|email" placeholder="メールアドレスを入力" />
           <ErrorMessage name="email" class="input-error-message" />
         </div>
         <div class="signup-grid">
@@ -37,7 +37,7 @@
               パスワード
             </label>
           </div>
-          <Field v-model="newUser.password" name="password" type="password" class="signup-form-input" />
+          <Field v-model="newUser.password" name="password" type="password" class="signup-form-input" rules="required" placeholder="パスワードを入力" />
           <ErrorMessage name="password" class="input-error-message" />
         </div>
         <button @click="submitForm" :class="isFormValid ? 'signup-button' : 'not-input-button'" :disabled="!isFormValid">
@@ -52,6 +52,7 @@
 <script lang="ts">
   import { ErrorMessage, Field, Form } from 'vee-validate';
   import { createUser } from '../../resources/user';
+  import './../../customValidations';
 
   export default {
     name: 'Signup',
@@ -69,17 +70,6 @@
         },
         errorMessage: "",
         isLoading: false,
-        signupValidateSchema: {
-          name(value: string) {
-            return value && value.trim() ? true : '名前は必須項目です';
-          },
-          email(value: string) {
-            return value && value.trim() ? true : 'メールアドレスは必須項目です'
-          },
-          password(value: string) {
-            return value && value.trim() ? true : 'パスワードは必須項目です'
-          }
-        }
       }
     },
     methods: {
@@ -100,11 +90,15 @@
         } finally {
           this.isLoading = false
         }
+      },
+      isValidEmail(address: string) {
+        const emailRegex = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i;
+        return emailRegex.test(address);
       }
     },
     computed: {
       isFormValid() {
-        return this.newUser.name && this.newUser.email && this.newUser.password
+        return this.newUser.name && this.newUser.email && this.isValidEmail(this.newUser.email) && this.newUser.password
       }
     }
   }
