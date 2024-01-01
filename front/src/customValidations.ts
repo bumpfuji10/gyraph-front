@@ -6,3 +6,15 @@ defineRule('required', (value: string) => {
   }
   return true;
 });
+
+defineRule('email', (value: string) => {
+  // Field is empty, should pass
+  if (!value || !value.length) {
+    return true;
+  }
+  // Check if email
+  if (!/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/.test(value)) {
+    return '正しいメールアドレスを入力してください';
+  }
+  return true;
+});
