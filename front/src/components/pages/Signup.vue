@@ -12,74 +12,95 @@
       新規登録
     </div>
     <main class="base-main-zone">
-      <!-- signup-gridは要リファクタリング -->
-      <div class="signup-grid">
-        <label for="" class="signup-label">
-          名前
-        </label>
-        <form>
-          <input type="text" class="signup-form-input" v-model="newUser.name">
-        </form>
-      </div>
-      <div class="signup-grid">
-        <label for="" class="signup-label">
-          メールアドレス
-        </label>
-        <form>
-          <input type="email" class="signup-form-input" v-model="newUser.email">
-        </form>
-      </div>
-      <div class="signup-grid">
-        <label for="" class="signup-label">
-          パスワード
-        </label>
-        <form>
-          <input type="password" class="signup-form-input" v-model="newUser.password">
-        </form>
-      </div>
-      <button @click="submitForm" class="signup-button">
-        <div v-if="isLoading" class="loading"></div>
-        <span v-if="!isLoading">登録</span>
-      </button>
-      <div class="redirect-login">
-        <router-link to="/login" class="redirect-login">ログインはこちら</router-link>
-      </div>
+      <Form @submit.prevent="submitForm">
+        <div class="signup-grid">
+          <div class="input-name-and-validate">
+            <label for="" class="signup-label">
+              名前
+            </label>
+          </div>
+          <Field v-model="newUser.name" name="name" type="text" class="signup-form-input" rules="required" placeholder="名前を入力" />
+          <ErrorMessage name="name" class="input-error-message"/>
+        </div>
+        <div class="signup-grid">
+          <div class="input-name-and-validate">
+            <label for="" class="signup-label">
+              メールアドレス
+            </label>
+          </div>
+          <Field v-model="newUser.email" name="email" type="email" class="signup-form-input" rules="required|email" placeholder="メールアドレスを入力" />
+          <ErrorMessage name="email" class="input-error-message" />
+        </div>
+        <div class="signup-grid">
+          <div class="input-name-and-validate">
+            <label for="" class="signup-label">
+              パスワード
+            </label>
+          </div>
+          <Field v-model="newUser.password" name="password" type="password" class="signup-form-input" rules="required" placeholder="パスワードを入力" />
+          <ErrorMessage name="password" class="input-error-message" />
+        </div>
+        <button @click="submitForm" :class="isFormValid ? 'signup-button' : 'not-input-button'" :disabled="!isFormValid">
+          <div v-if="isLoading" class="loading"></div>
+          <span v-if="!isLoading">登録</span>
+        </button>
+      </Form>
     </main>
   </div>
 </template>
 
 <script lang="ts">
-import { createUser } from '../../resources/user';
-export default {
-  name: 'Signup',
-  data() {
-    return {
-      newUser: {
-        name: "",
-        email: "",
-        password: "",
-      },
-      errorMessage: "",
-      isLoading: false
-    }
-  },
-  methods: {
-    async submitForm() {
-      try {
-        this.isLoading = true;
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        const response = await createUser(this.newUser)
-        console.log(response)
-        this.$router.push('/');
-      } catch(error: any) {
-        if (error.response && error.response.status === 422) {
-          const fullMessages = error.response.data.full_messages;
-          this.errorMessage = fullMessages
+  import { ErrorMessage, Field, Form } from 'vee-validate';
+  import { createUser } from '../../resources/user';
+  import './../../customValidations';
+
+  export default {
+    name: 'Signup',
+    components: {
+      ErrorMessage,
+      Field,
+      Form
+    },
+    data() {
+      return {
+        newUser: {
+          name: '',
+          email: "",
+          password: "",
+        },
+        errorMessage: "",
+        isLoading: false,
+      }
+    },
+    methods: {
+      async submitForm() {
+        try {
+          this.isLoading = true;
+          const response = await createUser(this.newUser);
+          console.log(response)
+          this.$nextTick(() => {
+            this.$router.push('/');
+          });
+        } catch(error: any) {
+          console.error(error)
+          if (error.response && error.response.status === 422) {
+            const fullMessages = error.response.data.full_messages;
+            this.errorMessage = fullMessages
+          }
+        } finally {
+          this.isLoading = false
         }
-      } finally {
-        this.isLoading = false
+      },
+      isValidEmail(address: string) {
+        const emailRegex = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i;
+        return emailRegex.test(address);
+      }
+    },
+    computed: {
+      isFormValid() {
+        return this.newUser.name && this.newUser.email && this.isValidEmail(this.newUser.email) && this.newUser.password
       }
     }
   }
-}
+
 </script>
