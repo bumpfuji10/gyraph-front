@@ -12,7 +12,6 @@
   border:0;
   padding:10px;
   border:solid 1px #ccc;
-  margin:0 0 20px;
   width:300px;
   border-radius: 4px;
 }
@@ -36,6 +35,7 @@
   border: none;
   cursor: pointer;
   background-color: #71C7EB;
+  margin-top: 20px;
 }
 
 .login-button:hover {
@@ -52,4 +52,8 @@
   padding: 22px;
   font-size: 16px;
   color: #71C7EB;;
+}
+
+.input-name-and-validate {
+  margin-top: 20px;
 }

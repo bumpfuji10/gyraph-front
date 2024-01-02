@@ -9,46 +9,58 @@
       ログイン
     </div>
     <main class="base-main-zone">
-      <div class="login-grid">
-        <label for="" class="login-label">
-          メールアドレス
-        </label>
-        <form action="">
-          <input type="text" class="login-form-input">
-        </form>
-      </div>
-      <div class="login-grid">
-        <label for="" class="login-label">
-          パスワード
-        </label>
-        <form action="">
-          <input type="text" class="login-form-input">
-        </form>
-      </div>
-      <button class="login-button">
-        ログイン
-      </button>
+      <Form>
+        <div class="login-grid">
+          <div class="input-name-and-validate">
+            <label for="" class="login-label">
+              メールアドレス
+            </label>
+          </div>
+          <Field name="email" type="text" class="login-form-input" rules="required|email" placeholder="メールアドレスを入力" />
+          <ErrorMessage name="email" class="input-error-message"/>
+        </div>
+        <div class="login-grid">
+          <div class="input-name-and-validate">
+            <label for="" class="login-label">
+              パスワード
+            </label>
+          </div>
+          <Field name="password" type="text" class="login-form-input" rules="required" placeholder="パスワードを入力" />
+          <ErrorMessage name="password" class="input-error-message"/>
+        </div>
+        <button @submit="submitLogin" :class="isFormValid ? 'login-button' : 'not-input-button'" :disabled="!isFormValid">
+          ログイン
+        </button>
+      </Form>
       <div class="redirect-password-forgot">
         <router-link to="/signup">パスワードをお忘れの方はこちら</router-link>
       </div>
       <div class="redirect-signup">
-        <router-link to="/signup" class="redirect-signup">登録はこちら</router-link>
+        <router-link to="/signup">登録はこちら</router-link>
       </div>
     </main>
   </div>
 </template>
 
 <script lang="ts">
+import { ErrorMessage, Field, Form } from 'vee-validate';
 import NotLoginHeader from '../NotLoginHeader.vue';
+import './../../customValidations';
 
 export default {
   name: 'Login',
   components: {
-    NotLoginHeader
+    NotLoginHeader,
+    ErrorMessage,
+    Field,
+    Form
   },
   methods: {
-    hoge() {
-      console.log("hoge");
+    isFormValid() {
+      return true;
+    },
+    async submitLogin() {
+      console.log("login!")
     }
   }
 }

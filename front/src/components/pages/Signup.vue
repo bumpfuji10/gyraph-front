@@ -45,6 +45,9 @@
           <span v-if="!isLoading">登録</span>
         </button>
       </Form>
+      <div class="redirect-signup">
+        <router-link to="/login">ログインはこちら</router-link>
+      </div>
     </main>
   </div>
 </template>
