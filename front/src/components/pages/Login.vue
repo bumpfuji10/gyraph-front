@@ -16,7 +16,8 @@
               メールアドレス
             </label>
           </div>
-          <Field name="email" type="text" class="login-form-input" placeholder="メールアドレスを入力" />
+          <Field name="email" type="text" class="login-form-input" rules="required|email" placeholder="メールアドレスを入力" />
+          <ErrorMessage name="email" class="input-error-message"/>
         </div>
         <div class="login-grid">
           <div class="input-name-and-validate">
@@ -24,9 +25,10 @@
               パスワード
             </label>
           </div>
-          <Field name="password" type="text" class="login-form-input" placeholder="パスワードを入力" />
+          <Field name="password" type="text" class="login-form-input" rules="required" placeholder="パスワードを入力" />
+          <ErrorMessage name="password" class="input-error-message"/>
         </div>
-        <button class="login-button">
+        <button @submit="submitLogin" :class="isFormValid ? 'login-button' : 'not-input-button'" :disabled="!isFormValid">
           ログイン
         </button>
       </Form>
@@ -43,6 +45,7 @@
 <script lang="ts">
 import { ErrorMessage, Field, Form } from 'vee-validate';
 import NotLoginHeader from '../NotLoginHeader.vue';
+import './../../customValidations';
 
 export default {
   name: 'Login',
@@ -53,8 +56,11 @@ export default {
     Form
   },
   methods: {
-    hoge() {
-      console.log("hoge");
+    isFormValid() {
+      return true;
+    },
+    async submitLogin() {
+      console.log("login!")
     }
   }
 }
