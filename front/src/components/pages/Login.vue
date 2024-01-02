@@ -9,42 +9,48 @@
       ログイン
     </div>
     <main class="base-main-zone">
-      <div class="login-grid">
-        <label for="" class="login-label">
-          メールアドレス
-        </label>
-        <form action="">
-          <input type="text" class="login-form-input">
-        </form>
-      </div>
-      <div class="login-grid">
-        <label for="" class="login-label">
-          パスワード
-        </label>
-        <form action="">
-          <input type="text" class="login-form-input">
-        </form>
-      </div>
-      <button class="login-button">
-        ログイン
-      </button>
-      <div class="redirect-password-forgot">
-        <router-link to="/signup">パスワードをお忘れの方はこちら</router-link>
-      </div>
-      <div class="redirect-signup">
-        <router-link to="/signup" class="redirect-signup">登録はこちら</router-link>
-      </div>
+      <Form>
+        <div class="login-grid">
+          <label for="" class="login-label">
+            メールアドレス
+          </label>
+          <form action="">
+            <input type="text" class="login-form-input">
+          </form>
+        </div>
+        <div class="login-grid">
+          <label for="" class="login-label">
+            パスワード
+          </label>
+          <form action="">
+            <input type="text" class="login-form-input">
+          </form>
+        </div>
+        <button class="login-button">
+          ログイン
+        </button>
+        <div class="redirect-password-forgot">
+          <router-link to="/signup">パスワードをお忘れの方はこちら</router-link>
+        </div>
+        <div class="redirect-signup">
+          <router-link to="/signup">登録はこちら</router-link>
+        </div>
+      </Form>
     </main>
   </div>
 </template>
 
 <script lang="ts">
+import { ErrorMessage, Field, Form } from 'vee-validate';
 import NotLoginHeader from '../NotLoginHeader.vue';
 
 export default {
   name: 'Login',
   components: {
-    NotLoginHeader
+    NotLoginHeader,
+    ErrorMessage,
+    Field,
+    Form
   },
   methods: {
     hoge() {
