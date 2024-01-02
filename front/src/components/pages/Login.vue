@@ -11,31 +11,31 @@
     <main class="base-main-zone">
       <Form>
         <div class="login-grid">
-          <label for="" class="login-label">
-            メールアドレス
-          </label>
-          <form action="">
-            <input type="text" class="login-form-input">
-          </form>
+          <div class="input-name-and-validate">
+            <label for="" class="login-label">
+              メールアドレス
+            </label>
+          </div>
+          <Field name="email" type="text" class="login-form-input" placeholder="メールアドレスを入力" />
         </div>
         <div class="login-grid">
-          <label for="" class="login-label">
-            パスワード
-          </label>
-          <form action="">
-            <input type="text" class="login-form-input">
-          </form>
+          <div class="input-name-and-validate">
+            <label for="" class="login-label">
+              パスワード
+            </label>
+          </div>
+          <Field name="password" type="text" class="login-form-input" placeholder="パスワードを入力" />
         </div>
         <button class="login-button">
           ログイン
         </button>
-        <div class="redirect-password-forgot">
-          <router-link to="/signup">パスワードをお忘れの方はこちら</router-link>
-        </div>
-        <div class="redirect-signup">
-          <router-link to="/signup">登録はこちら</router-link>
-        </div>
       </Form>
+      <div class="redirect-password-forgot">
+        <router-link to="/signup">パスワードをお忘れの方はこちら</router-link>
+      </div>
+      <div class="redirect-signup">
+        <router-link to="/signup">登録はこちら</router-link>
+      </div>
     </main>
   </div>
 </template>
