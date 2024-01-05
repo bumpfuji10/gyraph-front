@@ -16,7 +16,7 @@
               メールアドレス
             </label>
           </div>
-          <Field name="email" type="text" class="login-form-input" rules="required|email" placeholder="メールアドレスを入力" />
+          <Field v-model="loginUserParams.email" name="email" type="text" class="login-form-input" rules="required|email" placeholder="メールアドレスを入力" />
           <ErrorMessage name="email" class="input-error-message"/>
         </div>
         <div class="login-grid">
@@ -25,7 +25,7 @@
               パスワード
             </label>
           </div>
-          <Field name="password" type="text" class="login-form-input" rules="required" placeholder="パスワードを入力" />
+          <Field v-model="loginUserParams.password" name="password" type="text" class="login-form-input" rules="required" placeholder="パスワードを入力" />
           <ErrorMessage name="password" class="input-error-message"/>
         </div>
         <button @submit="submitLogin" :class="isFormValid ? 'login-button' : 'not-input-button'" :disabled="!isFormValid">
@@ -49,6 +49,14 @@ import './../../customValidations';
 
 export default {
   name: 'Login',
+  data() {
+    return {
+      loginUserParams: {
+        email: "",
+        password: ""
+      }
+    }
+  },
   components: {
     NotLoginHeader,
     ErrorMessage,
@@ -56,12 +64,18 @@ export default {
     Form
   },
   methods: {
-    isFormValid() {
-      return true;
+    isValidEmail(address: string) {
+      const emailRegex = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i;
+      return emailRegex.test(address);
     },
     async submitLogin() {
       console.log("login!")
     }
+  },
+  computed: {
+    isFormValid() {
+      return this.loginUserParams.email && this.isValidEmail(this.loginUserParams.email) && this.loginUserParams.password
+    },
   }
 }
 </script>
